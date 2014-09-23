@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ExtensionObject Path="NVD3LineChartFocus" 
+                 Label="NV D3 Line Chart with Focus" 
+				 Description="D3 Line Chart with Focus" 
+ 				 PageWidth="3"
+				 PageHeight="1000"
+				 Type="Object" >
+	<Dimension Label="Key" Initial="" TargetName="Key" OtherCounted="6" />
+	<Dimension Label="x-Axis" Initial="" TargetName="x-Axis" />
+	<Measurement Label="y-Axis" Initial="" TargetName="y-Axis" />
+    <Text Label="Show Others" Type="checkbox" Expression="1" />
+	<Initiate Name="Caption.Text" value="NVD3 Line Chart with Focus" />
+</ExtensionObject>
