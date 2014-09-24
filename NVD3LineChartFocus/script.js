@@ -56,8 +56,8 @@ if(!window.console){ window.console = {log: function(){} }; }
 								// get key elements in QlikView order
 								var listKey = [];
 								$.each(this.Data.Rows, function( index, row ) {
-									if ($.inArray(row[0].text, listKey) == -1) {
-										if (showOthers || row[0].text != "Others")
+									if ($.inArray(row[0].text, listKey) === -1) {
+										if (showOthers || row[0].text !== "Others")
 											listKey.push(row[0].text);
 									}
 								});
@@ -65,7 +65,7 @@ if(!window.console){ window.console = {log: function(){} }; }
 								// Transform data set
 								var data = d3.nest()
 											.key(function(d) { return d.key; }).sortKeys(function(a,b) { return listKey.indexOf(a) - listKey.indexOf(b); })
-											.entries(this.Data.Rows.filter(function(row){ return (showOthers || row[0].text != "Others"); }).map(function(row){
+											.entries(this.Data.Rows.filter(function(row){ return (showOthers || row[0].text !== "Others"); }).map(function(row){
 												return {"key" : row[0].text, "x" : (parseInt(row[1].text)  - 25569)*86400*1000, "y" : parseFloat(row[2].data)}
 											}))
 											.map(function(k){
