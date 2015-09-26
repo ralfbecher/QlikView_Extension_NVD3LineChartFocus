@@ -69,7 +69,7 @@ if(!window.console){ window.console = {log: function(){} }; }
 									var data = d3.nest()
 												.key(function(d) { return d.key; }).sortKeys(function(a,b) { return listKey.indexOf(a) - listKey.indexOf(b); })
 												.entries(this.Data.Rows.filter(function(row){ return (showOthers || row[0].text !== "Others"); }).map(function(row){
-													return {"key" : row[0].text, "x" : (parseInt(row[1].text)  - 25569)*86400*1000, "y" : parseFloat(row[2].data)}
+													return {"key" : row[0].text, "x" : convertToUnixTime(row[1].text), "y" : parseFloat(row[2].data)}
 												}))
 												.map(function(k){
 													return {"key": k.key, "values": k.values.map(function(v){ return {"x":v.x,"y":v.y} })}
@@ -107,3 +107,14 @@ if(!window.console){ window.console = {log: function(){} }; }
 			});
 		});
 })(jQuery);
+
+function convertToUnixTime(_text) {
+	return dateFromQlikNumber(parseInt(_text)).getTime();
+}
+
+function dateFromQlikNumber(n) {
+	var d = new Date((n - 25569)*86400*1000);
+	// since date was created in UTC shift it to the local timezone
+	d.setTime( d.getTime() + d.getTimezoneOffset()*60*1000 );
+	return d;
+}
