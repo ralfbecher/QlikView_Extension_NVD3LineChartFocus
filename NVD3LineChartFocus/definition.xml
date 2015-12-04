@@ -8,7 +8,9 @@
 	<Dimension Label="Key" Initial="" TargetName="Key" OtherCounted="6" />
 	<Dimension Label="x-Axis" Initial="" TargetName="x-Axis" />
 	<Measurement Label="y-Axis" Initial="" TargetName="y-Axis" />
-    <Text Label="Show Others" Type="checkbox" Expression="1" />
+    <Text Label="x-Axis d3 format (date)" Type="text" Expression="" />
+    <Text Label="y-Axis d3 format (number)" Type="text" Expression="" />
+    <Text Label="Show Others" Type="checkbox" Expression="" />
 	<Initiate Name="Caption.Text" value="NVD3 Line Chart with Focus" />
     <Initiate Name="Chart.Dimension.0.Field" Value="YourDimensionField" />
     <Initiate Name="Chart.Dimension.1.Field" Value="=Num(YourDateField)" />

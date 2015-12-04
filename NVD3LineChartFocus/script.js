@@ -23,11 +23,15 @@ if(!window.console){ window.console = {log: function(){} }; }
 	// load all libraries as array, don't use nested Qva.LoadScript() calls
 	Qv.LoadExtensionScripts([_path + 'js/d3.min.js', _path + 'js/nv.d3.min.js', _path + 'js/interactiveLayer.js', _path + 'js/utils.js'], 
 		function () {
+			// load css file
+			Qva.LoadCSS((_webview ? _path : _pathLong) + 'css/nv.d3.min.css');
 			Qv.AddExtension(_extension,
 				function () {
-					var showOthers = ((this.Layout.Text0.text.toString() * 1) > 0);
-					// load css file
-					Qva.LoadCSS((_webview ? _path : _pathLong) + 'css/nv.d3.min.css');
+					var xAxisFormat = this.Layout.Text0.text.toString();
+					xAxisFormat = (xAxisFormat == '' ? '%x' : xAxisFormat);
+					var yAxisFormat = this.Layout.Text1.text.toString();
+					yAxisFormat = (yAxisFormat == '' ? ',.2f' : yAxisFormat);
+					var showOthers = ((this.Layout.Text2.text.toString() * 1) > 0);
 					
 					// need a unique id to render chart
 					var objId = this.Layout.ObjectId.replace("\\", "_"); // chart name in CSS class (eg "QvFrame Document_CH01")
@@ -73,18 +77,18 @@ if(!window.console){ window.console = {log: function(){} }; }
 
 						var chart;
 						nv.addGraph(function() {
-							chart = nv.models.lineWithFocusChart();
+							chart = nv.models.lineWithFocusChart()
+									.margin({right: 40});
 
-						 // chart.transitionDuration(500);
 							chart.xAxis
-							  .tickFormat(function(d) { return d3.time.format('%x')(new Date(d)) });
+							  .tickFormat(function(d) { return d3.time.format(xAxisFormat)(new Date(d)) });
 							chart.x2Axis
-							  .tickFormat(function(d) { return d3.time.format('%x')(new Date(d)) });
+							  .tickFormat(function(d) { return d3.time.format(xAxisFormat)(new Date(d)) });
 
 							chart.yAxis
-							  .tickFormat(d3.format(',.2f'));
+							  .tickFormat(d3.format(yAxisFormat));
 							chart.y2Axis
-							  .tickFormat(d3.format(',.2f'));
+							  .tickFormat(d3.format(yAxisFormat));
 
 							d3.select('#'+objId+' svg')
 							  .datum(data)
